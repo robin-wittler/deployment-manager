@@ -1,0 +1,13 @@
+info:
+  title: One GCP Network Deployment Orchestration
+  author: Robin Wittler
+  description: "Orchestrates a GCP Network deployment"
+
+imports:
+  - path: network.jinja
+  - path: subnetwork.jinja
+
+required:
+  - network
+  - gatewayAddress
+  - ipCidrRange

@@ -1,0 +1,21 @@
+imports:
+- path: network.jinja
+- path: subnetwork.jinja
+
+{% for network_name, network_data in properties['network'].iteritems() %}
+resources:
+- name: {{ network_name }}
+  type: network.jinja
+
+    {% for subnetwork_name, subnet_data in network_data.iteritems() %}
+- name: {{ subnetwork_name }}
+  type: subnetwork.jinja
+  properties:
+    gatewayAddress: {{ subnet_data['gatewayAddress'] }}
+    ipCidrRange: {{ subnet_data['ipCidrRange'] }}
+    network: {{ network_name }}
+  metadata:
+    dependsOn:
+     - {{ network_name }}
+    {% endfor %}
+{% endfor %}

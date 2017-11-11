@@ -1,0 +1,7 @@
+resources:
+- name: {{ env['name'] }}
+  type: compute.v1.network
+  properties:
+    routingConfig:
+        routingMode: {{ properties['routingMode'] }}
+    autoCreateSubnetworks: {{ properties['autoCreateSubnetworks'] }}

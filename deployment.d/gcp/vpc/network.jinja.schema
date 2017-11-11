@@ -1,0 +1,20 @@
+info:
+  title: One GCP Network Deployment
+  author: Robin Wittler
+  description: "Creates a GCP Network"
+
+properties:
+  routingMode:
+    type: string
+    default: "REGIONAL"
+    description: "Routing mode. (REGIONAL OR GLOBAL)"
+
+  autoCreateSubnetworks:
+    type: boolean
+    default: False
+    description: "Create 'default' subnetworks automaticaly"
+
+  region:
+    type: string
+    description: "The region to use"
+    default: "europe-west1"

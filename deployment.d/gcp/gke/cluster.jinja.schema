@@ -1,0 +1,44 @@
+info:
+  title: GKE cluster with snat-fix
+  author: Robin Wittler
+  description: "Creates a GKE cluster with snat-fix"
+
+required:
+  - network
+  - subnetwork
+  - clusterIpv4Cidr
+
+properties:
+  initialNodeCount:
+    type: integer
+    description: "Initial number of nodes desired in the cluster."
+    default: 3
+  region:
+    type: string
+    description: "The Google Cloud Region to use"
+    default: "europe-west1"
+  zone:
+    type: string
+    description: "The Google Cloud Zone to use"
+    default: "europe-west1-c"
+  vmMachineType:
+    type: string
+    description: "Machine type for the VM"
+    default: "n1-standard-1"
+  network:
+    type: string
+    description: "The network to use"
+  subnetwork:
+    type: string
+    description: "The subnetwork to use"
+  clusterIpv4Cidr:
+    type: string
+    description: "The cluster ipv4 cidr"
+
+outputs:
+  clusterType:
+    description: The name of the type provider which can create resources from the Kubernetes v1 API in your cluster.
+    type: string
+  clusterType-v1beta1-extensions:
+    description: The name of the type provider which can create resources from the Kubernetes v1beta1-extensions API in your cluster.
+    type: string

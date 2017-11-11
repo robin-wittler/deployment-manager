@@ -1,0 +1,8 @@
+steps:
+- name: 'eu.gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/cloud-builder-demo-img', '.']
+images:
+- 'gcr.io/$PROJECT_ID/cloud-builder-demo-img'
+tags:
+- "demo"
+- "docker:build"

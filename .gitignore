@@ -1,0 +1,11 @@
+.idea
+*.swp
+*.bak
+*.pyc
+*.pyo
+*.tmp
+*.jpg
+*.jpeg
+*.png
+*.priv
+*.key

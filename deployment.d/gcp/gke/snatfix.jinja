@@ -43,3 +43,19 @@ resources:
                 RULE=(POSTROUTING \! -d {{ properties['clusterIpv4Cidr'] }} -m comment --comment 'nat-fixup: SNAT for outbound traffic (if not to other pods)' -m addrtype \! --dst-type LOCAL -j MASQUERADE)
                 iptables -t nat -C "${RULE[@]}" 2>/dev/null || iptables -t nat -A "${RULE[@]}"
 
+{#
+# in addition send salt master events when done. This will signal that the daemonset deployment could
+# get deleted. It will send every 10 seconds in case a master will miss an event. Use an Dockerimage with a minion
+# installation in it.
+
+# With the gcp ip-aliasing feature, this snatfix probably could go away 2017-11-11 (no joke!)
+
+# saltstack event docs: https://docs.saltstack.com/en/latest/topics/event/index.html
+
+#!/bin/sh
+
+                while true; do
+                    salt-call event.send 'ev/snatfix/deployment' '{success: True, message: "ready for deletion"}';
+                done
+#}
+

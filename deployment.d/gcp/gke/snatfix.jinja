@@ -1,0 +1,45 @@
+{% set NAME_PREFIX = env['name'] %}
+{% set CLUSTER_TYPE = env['project'] + '/' + properties['clusterName'] + '-type-v1beta1-extensions' %}
+{% set DAEMONSETS_COLLECTION = '/apis/extensions/v1beta1/namespaces/{namespace}/daemonsets' %}
+
+resources:
+- name: {{ NAME_PREFIX }}
+  type: "{{ CLUSTER_TYPE }}:{{ DAEMONSETS_COLLECTION }}"
+  metadata:
+    dependsOn:
+    - {{ properties['clusterName'] }}
+    - {{ properties['clusterName'] }}-type-v1beta1-extensions
+  properties:
+    namespace: default
+    apiVersion: extensions/v1beta1
+    name: {{ NAME_PREFIX }}
+    kind: DaemonSet
+    metadata:
+      name: {{ NAME_PREFIX }}
+      labels:
+        app: {{ NAME_PREFIX }}
+    spec:
+      template:
+        metadata:
+          labels:
+            app: startup-script
+        spec:
+          hostPID: true
+          containers:
+          - name: startup-script
+            image: {{ properties['image'] }}
+            imagePullPolicy: Always
+            securityContext:
+              privileged: true
+            env:
+            - name: STARTUP_SCRIPT
+              value: |
+                #! /bin/bash
+
+                set -o errexit
+                set -o pipefail
+                set -o nounset
+
+                RULE=(POSTROUTING \! -d {{ properties['clusterIpv4Cidr'] }} -m comment --comment 'nat-fixup: SNAT for outbound traffic (if not to other pods)' -m addrtype \! --dst-type LOCAL -j MASQUERADE)
+                iptables -t nat -C "${RULE[@]}" 2>/dev/null || iptables -t nat -A "${RULE[@]}"
+

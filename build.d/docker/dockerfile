@@ -1,0 +1,3 @@
+FROM alpine
+COPY ./files/whileloop.sh /
+CMD ["/whileloop.sh"]

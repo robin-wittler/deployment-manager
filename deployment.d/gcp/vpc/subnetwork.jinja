@@ -1,0 +1,10 @@
+resources:
+- name: {{ env['name'] }}
+  type: compute.v1.subnetwork
+  properties:
+    allowSubnetCidrRoutesOverlap: {{ properties['allowSubnetCidrRoutesOverlap'] }}
+    gatewayAddress: {{ properties['gatewayAddress'] }}
+    ipCidrRange: {{ properties['ipCidrRange'] }}
+    network: $(ref.{{ properties['network'] }}.selfLink)
+    privateIpGoogleAccess: {{ properties['privateIpGoogleAccess'] }}
+    region: {{ properties['region'] }}

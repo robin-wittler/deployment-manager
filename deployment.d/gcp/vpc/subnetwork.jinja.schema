@@ -1,0 +1,39 @@
+info:
+  title: One GCP SubNetwork Deployment
+  author: Robin Wittler
+  description: "Creates a custom GCP Subnetwork"
+
+required:
+  - gatewayAddress
+  - ipCidrRange
+  - network
+
+properties:
+  allowSubnetCidrRoutesOverlap:
+    type: boolean
+    default: False
+    description: "None given (FIXME)"
+
+  gatewayAddress:
+    type: string
+    description: "The Gateway address"
+
+  ipCidrRange:
+    type: string
+    description: "The ip range to use"
+
+  network:
+    type: string
+    description: "The name of the network to use"
+
+  privateIpGoogleAccess:
+    type: boolean
+    default: False
+    description: |
+        Whether the VMs in this subnet can access Google services without assigned external IP addresses.
+        This field can be both set at resource creation time and updated using setPrivateIpGoogleAccess.
+
+  region:
+    type: string
+    description: "The region to use"
+    default: "europe-west1"

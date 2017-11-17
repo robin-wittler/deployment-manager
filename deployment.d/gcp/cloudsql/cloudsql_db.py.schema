@@ -1,0 +1,20 @@
+info:
+  title: Generates a Cloud SQL instance with proxy user
+  author: sebastian.mueller@freiheit.com
+  description: Template to be used for generating Cloud SQL instances with basic settings conforming to E&V Platform specs.
+  version: 0.1
+
+required:
+  - database_name
+  - zone
+  
+properties:
+  database_name:
+    description: Name of the Cloud SQL database.
+    type: string
+  zone:
+    description: The name of the Google Compute Engine zone in which the cluster resides.
+    type: string
+  description:
+    description: Short description of the purpose of this db.
+    type: string
